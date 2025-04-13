@@ -6,9 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="e4db3907-0456-4110-a9a0-9c11cef05d1f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/mainpage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/mainpage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/quizpage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/quizpage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quiz/lib/versepage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/versepage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quiz/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quiz/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +53,12 @@
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Projects\biblequiz2\quiz\lib" />
+      <recent name="C:\Projects\biblequiz2\quiz\lib\screens" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

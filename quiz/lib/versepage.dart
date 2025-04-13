@@ -6,7 +6,8 @@ import 'package:quiz/quizpage.dart';
 import 'package:html/parser.dart' show parse;
 
 class VersePage extends StatefulWidget {
-  const VersePage({super.key});
+  const VersePage({super.key, required this.portions});
+  final String portions;
 
   @override
   State<VersePage> createState() => _VersePageState();
@@ -14,19 +15,19 @@ class VersePage extends StatefulWidget {
 
 class _VersePageState extends State<VersePage> {
 
-  String passagetext = 'Loading...';
+  String passageText = 'Loading...';
   String rawtext = "Loading...";
 
   @override
   void initState(){
     super.initState();
-    fetchBiblePassage();
+    fetchBiblePassage(widget.portions);
   }
 
-  Future<void> fetchBiblePassage() async{
+  Future<void> fetchBiblePassage(String portions) async{
     final url = Uri.https('bible.oremus.org', '/', {
       'version': 'NRSV',
-      'passage': 'Luke 2-3',
+      'passage': portions,
     });
     try{
       final response = await http.get(url);
@@ -37,21 +38,25 @@ class _VersePageState extends State<VersePage> {
 
         final extractedText = bibleText?.text.trim() ?? "No content found";
         final htmlString = bibleText?.innerHtml ?? "No content found";
+        String modifiedHtml = htmlString.replaceAllMapped(
+          RegExp(r'<span[^>]*>LORD</span>', caseSensitive: false),
+              (match) => 'LORD',
+        );
 
         setState(() {
-          passagetext = htmlString;
+          passageText = modifiedHtml;
           rawtext = extractedText;
         });
       }
       else{
         setState(() {
-          passagetext = "Failed to load passage (status: ${response.statusCode})";
+          passageText = "Failed to load passage (status: ${response.statusCode})";
         });
       }
     }
     catch(e){
       setState(() {
-        passagetext = "Error: $e";
+        passageText = "Error: $e";
       });
     }
   }
@@ -77,7 +82,7 @@ class _VersePageState extends State<VersePage> {
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    "LUKE chapters 3 - 5", //remember to add better formatting to this text
+                    widget.portions, //remember to add better formatting to this text
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 34,
@@ -86,7 +91,7 @@ class _VersePageState extends State<VersePage> {
                   ),
                   SizedBox(height: 30,),
                   Html(
-                    data: passagetext,
+                    data: passageText,
                     style: {
                       "span": Style(
                         fontSize: FontSize(30.0),

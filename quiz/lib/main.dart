@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'mainpage.dart';
+import 'package:quiz/mainpage.dart';
+import 'package:quiz/signup.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async{
   runApp(const MyApp());
 }
 
