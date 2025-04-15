@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/auth/auth_service.dart';
+import 'package:quiz/database/user_database.dart';
 import 'package:quiz/login.dart';
 import 'package:quiz/mainpage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -11,26 +13,53 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final authService = AuthService();
+  final database = UserDatabase();
 
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _obscureText = true;
-  final supabase = Supabase.instance.client;
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
-  Future<void> signUp(String email, String password) async{
-    final response = await supabase.auth.signUp(
-      email: email,
-      password: password,
-    );
-    if(response.user != null){
-      print("Sign Up successful");
-      Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(),));
+  bool _obscureText = true;
+  bool _obscureText2 = true;
+
+  void signUp() async {
+    final name = _nameController.text;
+    final email = _emailController.text;
+    final password = _passwordController.text;
+    final confirmPassword = _confirmPasswordController.text;
+
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Passwords don't match")));
+      return;
     }
-    else{
-      print('Error: sign up failed');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error signing up')),
-      );
+
+    if (name == null || name.trim().isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Name can't be empty")));
+      return;
+    }
+
+    try{
+      await database.createUser(email, name);
+    }
+    catch(e){
+      if(mounted){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: $e")));
+      }
+    }
+
+    try {
+      await authService.signUpWithEmailPassword(email, password);
+      Navigator.pop(context);
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Error: $e")));
+      }
     }
   }
 
@@ -51,43 +80,49 @@ class _SignUpState extends State<SignUp> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn(),));
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LogIn(),
+                      ));
                 },
                 child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                          text: "Already have an Account? ",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
-                          )
-                      ),
-                      TextSpan(
-                          text: "Log In",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w900,
-                          )
-                      ),
-                    ]
-                  ),
+                  text: TextSpan(children: [
+                    TextSpan(
+                        text: "Already have an Account? ",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                        )),
+                    TextSpan(
+                        text: "Log In",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w900,
+                        )),
+                  ]),
                 ),
               ),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),
                 child: TextField(
+                  controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Name',
                     hintText: 'Enter your name',
                     hintStyle: TextStyle(color: Colors.grey[600]),
-                    contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
@@ -117,7 +152,8 @@ class _SignUpState extends State<SignUp> {
                     labelText: 'Email',
                     hintText: 'Enter your text',
                     hintStyle: TextStyle(color: Colors.grey[600]),
-                    contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
@@ -146,10 +182,10 @@ class _SignUpState extends State<SignUp> {
                   obscureText: _obscureText,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscureText?Icons.visibility_off_rounded:Icons.visibility_rounded
-                      ),
-                      onPressed: (){
+                      icon: Icon(_obscureText
+                          ? Icons.visibility_off_rounded
+                          : Icons.visibility_rounded),
+                      onPressed: () {
                         setState(() {
                           _obscureText = !_obscureText;
                         });
@@ -158,7 +194,8 @@ class _SignUpState extends State<SignUp> {
                     labelText: 'Password',
                     hintText: 'Enter your password',
                     hintStyle: TextStyle(color: Colors.grey[600]),
-                    contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
@@ -183,22 +220,24 @@ class _SignUpState extends State<SignUp> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),
                 child: TextField(
-                  obscureText: _obscureText,
+                  controller: _confirmPasswordController,
+                  obscureText: _obscureText2,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
-                      icon: Icon(
-                          _obscureText?Icons.visibility_off_rounded:Icons.visibility_rounded
-                      ),
-                      onPressed: (){
+                      icon: Icon(_obscureText2
+                          ? Icons.visibility_off_rounded
+                          : Icons.visibility_rounded),
+                      onPressed: () {
                         setState(() {
-                          _obscureText = !_obscureText;
+                          _obscureText2 = !_obscureText2;
                         });
                       },
                     ),
                     labelText: 'Confirm Password',
                     hintText: 'Match the above password',
                     hintStyle: TextStyle(color: Colors.grey[600]),
-                    contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
@@ -223,17 +262,15 @@ class _SignUpState extends State<SignUp> {
               Padding(
                 padding: const EdgeInsets.only(top: 50.0),
                 child: ElevatedButton(
-                  onPressed: (){
-                    // signUp(_emailController.text, _passwordController.text);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(),));
-                  },
+                  onPressed: signUp,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 80.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 80.0),
                   ),
                   child: Text(
                     "Sign Up",

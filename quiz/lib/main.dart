@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/auth/auth_gate.dart';
 import 'package:quiz/mainpage.dart';
 import 'package:quiz/signup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async{
+  //supabase setup
+  await Supabase.initialize(
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qbmFhd2hwcWhxZXNtdmFhdmZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ2MDk5MTEsImV4cCI6MjA2MDE4NTkxMX0.v9pb__4gt9obDIoevGj-V35fPhmCcYvDzIfwZ8wcwhk",
+    url: "https://ojnaawhpqhqesmvaavfl.supabase.co",
+  );
   runApp(const MyApp());
 }
 
@@ -14,13 +20,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: const AuthGate(),
     );
   }
 }

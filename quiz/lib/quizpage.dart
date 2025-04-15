@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as html_parser;
 import 'package:flutter_html/flutter_html.dart';
-import 'utils/ListQuestion.dart';
+import 'package:quiz/mainpage.dart';
+import 'utils/list_question_item.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key, required this.passage});
@@ -71,12 +72,13 @@ class _QuizPageState extends State<QuizPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Text(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
                     "Quiz Time",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -84,22 +86,46 @@ class _QuizPageState extends State<QuizPage> {
                       color: Colors.black,
                     ),
                   ),
-                ),
-                const SizedBox(height: 50),
-                quizList.isEmpty
-                    ? Center(child: Text("Loading"))
-                    : Column(
-                  children: quizList.map((item) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: ListQuestion(
-                        question: item["question"],
-                        options: item["options"],
+                  const SizedBox(height: 50),
+                  quizList.isEmpty
+                      ? Center(child: Text("Loading"))
+                      : Column(
+                    children: quizList.map((item) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: ListQuestion(
+                          question: item["question"],
+                          options: item["options"],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: ElevatedButton(
+                      onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(),));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 80.0),
                       ),
-                    );
-                  }).toList(),
-                ),
-              ],
+                      child: Text(
+                        "Go Home",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
