@@ -3,14 +3,20 @@ class GlobalUser{
   factory GlobalUser() => _instance;
   GlobalUser._internal();
 
+  //User details
   String name = '';
   String email = '';
+  int userId = 0;
+
+  //Quiz details
   String portions = '';
   int progress = 0;
   int currentDay = 0;
-  DateTime startDate = DateTime(2025, 04, 13);
+  List<Map<String, dynamic>>? quiz;
+  DateTime startDate = DateTime(2025, 04, 17);
 
   void updateFromMap(Map<String, dynamic> data) {
+    userId = data['id'] ?? 0;
     name = data['user_name'] ?? '';
     email = data['user_email'] ?? '';
     progress = data['progress'] ?? 0;//not sure if this will bite me in the butt later

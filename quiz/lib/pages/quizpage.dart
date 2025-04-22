@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:html/parser.dart' as html_parser;
-import 'package:flutter_html/flutter_html.dart';
-import 'package:quiz/mainpage.dart';
-import 'utils/list_question_item.dart';
+import 'package:quiz/pages/main_page.dart';
+import '../utils/list_question_item.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key, required this.passage});

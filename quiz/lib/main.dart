@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/auth/auth_gate.dart';
-import 'package:quiz/mainpage.dart';
-import 'package:quiz/signup.dart';
+import 'package:quiz/pages/main_page.dart';
+import 'package:quiz/pages/sign_up.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async{

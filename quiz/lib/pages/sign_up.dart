@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/auth/auth_service.dart';
 import 'package:quiz/database/user_database.dart';
-import 'package:quiz/login.dart';
-import 'package:quiz/mainpage.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:quiz/pages/log_in.dart';
+
+import 'main_page.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -54,7 +54,11 @@ class _SignUpState extends State<SignUp> {
 
     try {
       await authService.signUpWithEmailPassword(email, password);
-      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const MyHomePage()),
+            (Route<dynamic> route) => false,
+      );
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context)

@@ -8,9 +8,9 @@ authenticated -> Main Page
  */
 
 import 'package:flutter/material.dart';
-import 'package:quiz/mainpage.dart';
+import 'package:quiz/pages/main_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../login.dart';
+import '../pages/log_in.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});

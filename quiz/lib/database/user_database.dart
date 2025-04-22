@@ -1,11 +1,12 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:quiz/utils/global_variables.dart';
 
 class UserDatabase {
-  final database = Supabase.instance.client.from('User');
+  final database = Supabase.instance.client;
 
   //Create
   Future createUser(String userEmail, String userName) async {
-    await database.insert({
+    await database.from('User').insert({
       'user_email': userEmail,
       'user_name': userName,
       'progress': 1,
@@ -14,16 +15,17 @@ class UserDatabase {
 
   //Read
   Future<Map<String, dynamic>> getUserDetails(String currentUserEmail) async {
-      final user = await database
-          .select('user_email, user_name, progress')
+      final user = await database.from('User')
+          .select('id, user_email, user_name, progress')
           .eq('user_email', currentUserEmail)
           .single();
       return user;
   }
 
-  Future updateProgress(int progress) async{
-    await database.update({
-      'progress': progress,
-    });
+  Future updateProgress(int progress) async {
+    await database
+        .from('User') // Use your actual table name here
+        .update({'progress': progress})
+        .eq('id', GlobalUser().userId); // Target a specific user row
   }
 }

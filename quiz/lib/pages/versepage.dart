@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as html_parser;
 import 'package:flutter_html/flutter_html.dart';
-import 'package:quiz/quizpage.dart';
-import 'package:html/parser.dart' show parse;
+import 'package:quiz/pages/quizpage.dart';
 
 class VersePage extends StatefulWidget {
   const VersePage({super.key, required this.portions});

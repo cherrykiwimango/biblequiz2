@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:quiz/auth/auth_service.dart';
 import 'package:quiz/database/quiz_database.dart';
 import 'package:quiz/database/user_database.dart';
+import 'package:quiz/pages/quiz_page.dart';
 import 'package:quiz/utils/global_variables.dart';
-import 'package:quiz/versepage.dart';
+import 'package:quiz/pages/versepage.dart';
 import 'package:quiz/utils/bible_portions_manager.dart';
+
+import 'log_in.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -20,10 +23,19 @@ class _MyHomePageState extends State<MyHomePage> {
   final database = UserDatabase();
   final quizDatabase = QuizDatabase();
 
+  //logout function
   void logout() async{
     await authService.signOut();
+
+    // Navigate to login page and clear the navigation stack
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LogIn()),
+          (route) => false,
+    );
   }
 
+  //update global variables on page reload
   Future<void> _loadInfo() async {
     int day;
 
@@ -38,6 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
     GlobalUser().portions = await quizDatabase.getPortion(day) ?? 'Unavailable';
+    GlobalUser().quiz = await quizDatabase.getQuiz(day);
+
     if (mounted) {
       setState(() {
         _isLoading = false;
@@ -82,34 +96,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => VersePage(
-                                portions: BiblePortionManager.portionsForToday(),
-                              ),
-                            ));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
-                      ),
-                      child: Text(
-                        "Experimental",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    // child: ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (context) => VersePage(
+                    //             portions: BiblePortionManager.portionsForToday(),
+                    //           ),
+                    //         ));
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: Colors.black,
+                    //     elevation: 0,
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(15.0),
+                    //     ),
+                    //     padding:
+                    //     EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
+                    //   ),
+                    //   child: Text(
+                    //     "Experimental",
+                    //     style: TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 16,
+                    //       fontWeight: FontWeight.bold,
+                    //     ),
+                    //   ),
+                    // ),
                   ),
                   SizedBox(height: 50,),
                   Text(
@@ -164,21 +178,30 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SizedBox(height: 30,),
               ElevatedButton(
-                onPressed: () {
+                onPressed: GlobalUser().progress > GlobalUser().currentDay
+                    ? null
+                    : () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Quiz()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: GlobalUser().progress > GlobalUser().currentDay
+                      ? Colors.grey[400]
+                      : Colors.black,
+                  foregroundColor: GlobalUser().progress > GlobalUser().currentDay
+                      ? Colors.grey[800]
+                      : Colors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  padding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
+                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
                 ),
                 child: Text(
                   "Attempt Quiz",
                   style: TextStyle(
-                    color: Colors.white,
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
                   ),

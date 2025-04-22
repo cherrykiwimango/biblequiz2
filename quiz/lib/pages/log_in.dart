@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/auth/auth_service.dart';
-import 'package:quiz/signup.dart';
+import 'package:quiz/pages/sign_up.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
