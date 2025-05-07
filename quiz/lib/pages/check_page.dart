@@ -24,32 +24,34 @@ class _CheckPageState extends State<CheckPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+          toolbarHeight: 100,
           backgroundColor: Colors.white,
           centerTitle: true,
-          title: Padding(
-            padding: const EdgeInsets.only(top: 20),
+          title: Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppColors.error,
+              borderRadius: BorderRadius.circular(20),
+            ),
             child: Text(
               'Your Score: ${widget.score}/${quiz!.length}',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
-                color: AppColors.textPrimary,
+                color: AppColors.tertiary,
               ),
             ),
           ),
-          leading: Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: IconButton(
-              icon: Icon(Icons.arrow_back_ios_new),
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new),
+            onPressed: (){
+              Navigator.pop(context);
+            },
           )
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-        child: Center(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -58,7 +60,6 @@ class _CheckPageState extends State<CheckPage> {
                   child: CircularProgressIndicator(),
                 )
               else
-                SizedBox(height: 50,),
                 Expanded(
                   child: PageView.builder(
                     controller: _pageController,
@@ -74,9 +75,6 @@ class _CheckPageState extends State<CheckPage> {
                     },
                   ),
                 ),
-              SizedBox(
-                height: 20,
-              ),
             ],
           ),
         ),

@@ -43,18 +43,9 @@ class _SignUpState extends State<SignUp> {
           .showSnackBar(const SnackBar(content: Text("Name can't be empty")));
       return;
     }
-
-    try{
-      await database.createUser(email, name);
-    }
-    catch(e){
-      if(mounted){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: $e")));
-      }
-    }
-
     try {
       await authService.signUpWithEmailPassword(email, password);
+      await database.createUser(email, name);
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const MyHomePage()),

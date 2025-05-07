@@ -22,22 +22,22 @@ class _ScorePageState extends State<ScorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: Lottie.asset(
-              'assets/Animation - 1746595557545.json',
-              width: 1000,
-              height: 1000,
-              repeat: false,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Center(
+              child: Lottie.asset(
+                'assets/Animation - 1746595557545.json',
+                width: 1000,
+                height: 1000,
+                repeat: false,
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 80, bottom: 25, left: 25, right: 25),
-            child: Center(
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
               child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
                     width: double.infinity,
@@ -151,7 +151,6 @@ class _ScorePageState extends State<ScorePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 60,),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -191,8 +190,8 @@ class _ScorePageState extends State<ScorePage> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

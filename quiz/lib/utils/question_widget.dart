@@ -38,7 +38,7 @@ class QuestionWidget extends StatelessWidget {
         Text(
           questionData['question'],
           style: TextStyle(
-            fontSize: 28,
+            fontSize: 30,
             fontWeight: FontWeight.w800,
             color: AppColors.primary,
           ),
@@ -111,9 +111,10 @@ class QuestionCheckWidget extends StatelessWidget {
         Text(
           questionData['question'],
           style: TextStyle(
-            fontSize: 28,
+            fontSize: 30,
             fontWeight: FontWeight.w800,
             color: AppColors.primary,
+            fontFamily: 'OpenSans'
           ),
         ),
         SizedBox(height: 50),
@@ -147,8 +148,8 @@ class QuestionCheckWidget extends StatelessWidget {
         Text(
           'Answer: ${questionData['answer']}',
           style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
             color: Colors.green,
           ),
         )

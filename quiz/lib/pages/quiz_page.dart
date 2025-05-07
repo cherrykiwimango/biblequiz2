@@ -37,10 +37,15 @@ class _QuizState extends State<Quiz> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: 100,
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 20),
+        title: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: AppColors.error,
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: Text(
             GlobalUser().portions,
             style: TextStyle(
@@ -50,19 +55,16 @@ class _QuizState extends State<Quiz> {
             ),
           ),
         ),
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new),
-            onPressed: (){
-              Navigator.pop(context);
-            },
-          ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new),
+          onPressed: (){
+            Navigator.pop(context);
+          },
         )
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
-        child: Center(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 30),
           child: Column(
             children: [
               if (quiz == null)
@@ -70,7 +72,6 @@ class _QuizState extends State<Quiz> {
                   child: CircularProgressIndicator(),
                 )
               else
-                SizedBox(height: 50,),
                 Expanded(
                   child: PageView.builder(
                     controller: _pageController,
@@ -147,9 +148,6 @@ class _QuizState extends State<Quiz> {
                     Icon(Icons.arrow_right_alt_sharp, color: AppColors.primary, size: 30,),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 60,
               ),
             ],
           ),

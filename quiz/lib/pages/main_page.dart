@@ -82,9 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.only(left: 25, right: 25, top: 80, bottom: 25),
-        child: Center(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hi ${GlobalUser().name},",
+                            "Hey ${GlobalUser().name},",
                             style: TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.w700,
@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
-                              fontSize: 16,
+                              fontSize: 17,
                             ),
                           ),
                         ],
@@ -257,7 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 50,),
                   Column(
                     children: [
                       Row(
@@ -296,46 +296,43 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 30,),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: ElevatedButton(
-                  onPressed: GlobalUser().progress > GlobalUser().currentDay
-                      ? null
-                      : () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Quiz()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: GlobalUser().progress > GlobalUser().currentDay
-                        ? Colors.grey[400]
-                        : AppColors.secondary,
-                    foregroundColor: GlobalUser().progress > GlobalUser().currentDay
-                        ? Colors.grey[800]
-                        : AppColors.primary,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                      side: BorderSide(color: AppColors.primary)
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+              // SizedBox(height: 30,),
+              ElevatedButton(
+                onPressed: GlobalUser().progress > GlobalUser().currentDay
+                    ? null
+                    : () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Quiz()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: GlobalUser().progress > GlobalUser().currentDay
+                      ? Colors.grey[400]
+                      : AppColors.secondary,
+                  foregroundColor: GlobalUser().progress > GlobalUser().currentDay
+                      ? Colors.grey[800]
+                      : AppColors.primary,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    side: BorderSide(color: AppColors.primary)
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "Attempt Quiz",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Attempt Quiz",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(width: 10),
-                      Icon(Icons.arrow_right_alt_sharp, color: AppColors.primary, size: 30,),
-                    ],
-                  ),
+                    ),
+                    SizedBox(width: 10),
+                    Icon(Icons.arrow_right_alt_sharp, color: AppColors.primary, size: 30,),
+                  ],
                 ),
               ),
             ],
