@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4db3907-0456-4110-a9a0-9c11cef05d1f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/other.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quiz/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/web/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/database/user_database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/database/user_database.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/pages/check_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/pages/check_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/pages/log_in.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/pages/log_in.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/pages/main_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/pages/main_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/pages/quiz_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/pages/quiz_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/pages/score_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/pages/score_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/pages/sign_up.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/pages/sign_up.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/lib/utils/global_variables.dart" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/lib/utils/global_variables.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

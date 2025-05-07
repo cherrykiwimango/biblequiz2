@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quiz/auth/auth_service.dart';
 import 'package:quiz/database/quiz_database.dart';
 import 'package:quiz/database/user_database.dart';
@@ -6,7 +8,7 @@ import 'package:quiz/pages/quiz_page.dart';
 import 'package:quiz/utils/global_variables.dart';
 import 'package:quiz/pages/versepage.dart';
 import 'package:quiz/utils/bible_portions_manager.dart';
-
+import 'package:quiz/utils/colors.dart';
 import 'log_in.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -22,6 +24,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final authService = AuthService();
   final database = UserDatabase();
   final quizDatabase = QuizDatabase();
+
+  late int totalScore = 0;
 
   //logout function
   void logout() async{
@@ -47,8 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
     (GlobalUser().progress > GlobalUser().currentDay)?
     day = GlobalUser().currentDay
     : day = GlobalUser().progress;
-
-
+    
+    totalScore = await database.getScore();
+    
     GlobalUser().portions = await quizDatabase.getPortion(day) ?? 'Unavailable';
     GlobalUser().quiz = await quizDatabase.getQuiz(day);
 
@@ -76,134 +81,260 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Standby"),
-        actions: [
-          IconButton(
-            onPressed: logout,
-            icon: Icon(Icons.logout),
-          )
-        ],
-      ),
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+        padding: EdgeInsets.only(left: 25, right: 25, top: 80, bottom: 25),
         child: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    // child: ElevatedButton(
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //           builder: (context) => VersePage(
-                    //             portions: BiblePortionManager.portionsForToday(),
-                    //           ),
-                    //         ));
-                    //   },
-                    //   style: ElevatedButton.styleFrom(
-                    //     backgroundColor: Colors.black,
-                    //     elevation: 0,
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(15.0),
-                    //     ),
-                    //     padding:
-                    //     EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
-                    //   ),
-                    //   child: Text(
-                    //     "Experimental",
-                    //     style: TextStyle(
-                    //       color: Colors.white,
-                    //       fontSize: 16,
-                    //       fontWeight: FontWeight.bold,
-                    //     ),
-                    //   ),
-                    // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hi ${GlobalUser().name},",
+                            style: TextStyle(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 28,
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          Text(
+                            "Welcome back, Let's get started",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: GestureDetector(
+                          onTap: logout,
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/chad.png',
+                              width: 77,
+                              height: 77,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                   SizedBox(height: 50,),
-                  Text(
-                    "Welcome ${GlobalUser().name}",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 30,
+                  //the top blue box
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: AppColors.secondary,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 20,),
-                  Text(
-                    "Today: Day ${GlobalUser().currentDay}",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w500,
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(FontAwesomeIcons.barsProgress, color: AppColors.accent, size: 35,),
+                              SizedBox(width: 15,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Day ${GlobalUser().progress}",
+                                    style: TextStyle(
+                                      color: AppColors.accent,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5,),
+                                  Text(
+                                    "Your Progress",
+                                    style: TextStyle(
+                                      color: AppColors.accent,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                          VerticalDivider(
+                            color: Colors.white,
+                            thickness: 1,
+                            width: 20, //
+                          ),
+                          Row(
+                            children: [
+                              Icon(FontAwesomeIcons.calendarDay, color: AppColors.primary, size: 35,),
+                              SizedBox(width: 15,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Day ${GlobalUser().currentDay}",
+                                    style: TextStyle(
+                                      color: AppColors.primary,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5,),
+                                  Text(
+                                    "Current Day",
+                                    style: TextStyle(
+                                      color: AppColors.primary,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(height: 50,),
-                  Text(
-                    "Progess: Day ${GlobalUser().progress}",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 46,
-                      fontWeight: FontWeight.w900,
+                  SizedBox(height: 15,),
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: AppColors.secondary)
                     ),
-                  ),
-                  SizedBox(height: 10,),
-                  Text(
-                    GlobalUser().portions,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 38,
-                      fontWeight: FontWeight.w900,
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
+                    child: IntrinsicHeight(
+                      child: Column(
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: 'Your ',
+                            style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w800),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Total Score',
+                                style: TextStyle(fontWeight: FontWeight.w800, color: AppColors.primary),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            SizedBox(
+                              height: 140,
+                              width: 140,
+                              child: CircularProgressIndicator(
+                                value: 7 / 10,
+                                strokeWidth: 9,
+                                backgroundColor: AppColors.neutral,
+                                valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text("${totalScore}", style: TextStyle(fontWeight: FontWeight.w800, color: AppColors.primary, fontSize: 36)),
+                                Text("/${GlobalUser().currentDay * 10}", style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary, fontSize: 24)),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 30,),
-                  Text(
-                    "this is the main page of the app",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.new_releases_rounded, color: AppColors.tertiary,),
+                          SizedBox(width: 10,),
+                          Text(
+                            "Today's Portion",
+                            style: TextStyle(
+                              color: AppColors.tertiary,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppColors.error,
+                        ),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          GlobalUser().portions,
+                          style: TextStyle(
+                            color: AppColors.tertiary,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
               SizedBox(height: 30,),
-              ElevatedButton(
-                onPressed: GlobalUser().progress > GlobalUser().currentDay
-                    ? null
-                    : () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Quiz()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: GlobalUser().progress > GlobalUser().currentDay
-                      ? Colors.grey[400]
-                      : Colors.black,
-                  foregroundColor: GlobalUser().progress > GlobalUser().currentDay
-                      ? Colors.grey[800]
-                      : Colors.white,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: ElevatedButton(
+                  onPressed: GlobalUser().progress > GlobalUser().currentDay
+                      ? null
+                      : () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Quiz()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: GlobalUser().progress > GlobalUser().currentDay
+                        ? Colors.grey[400]
+                        : AppColors.secondary,
+                    foregroundColor: GlobalUser().progress > GlobalUser().currentDay
+                        ? Colors.grey[800]
+                        : AppColors.primary,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: AppColors.primary)
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
-                ),
-                child: Text(
-                  "Attempt Quiz",
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Attempt Quiz",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Icon(Icons.arrow_right_alt_sharp, color: AppColors.primary, size: 30,),
+                    ],
                   ),
                 ),
               ),

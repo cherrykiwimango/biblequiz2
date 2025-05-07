@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz/auth/auth_service.dart';
 import 'package:quiz/database/user_database.dart';
 import 'package:quiz/pages/log_in.dart';
+import 'package:quiz/utils/colors.dart';
 
 import 'main_page.dart';
 
@@ -79,9 +80,9 @@ class _SignUpState extends State<SignUp> {
               Text(
                 "Sign Up",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: AppColors.primary,
                   fontSize: 34,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               SizedBox(
@@ -108,7 +109,7 @@ class _SignUpState extends State<SignUp> {
                         text: "Log In",
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.black,
+                          color: AppColors.primary,
                           fontWeight: FontWeight.w900,
                         )),
                   ]),
@@ -130,14 +131,14 @@ class _SignUpState extends State<SignUp> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.grey,
+                        color: AppColors.secondary,
                         width: 1,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.black,
+                        color: AppColors.primary,
                         width: 2.0,
                       ),
                     ),
@@ -161,14 +162,14 @@ class _SignUpState extends State<SignUp> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.grey,
+                        color: AppColors.secondary,
                         width: 1,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.black,
+                        color: AppColors.primary,
                         width: 2.0,
                       ),
                     ),
@@ -203,14 +204,14 @@ class _SignUpState extends State<SignUp> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.grey,
+                        color: AppColors.secondary,
                         width: 1,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.black,
+                        color: AppColors.primary,
                         width: 2.0,
                       ),
                     ),
@@ -245,14 +246,14 @@ class _SignUpState extends State<SignUp> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.grey,
+                        color: AppColors.secondary,
                         width: 1,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.black,
+                        color: AppColors.primary,
                         width: 2.0,
                       ),
                     ),
@@ -268,7 +269,7 @@ class _SignUpState extends State<SignUp> {
                 child: ElevatedButton(
                   onPressed: signUp,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: AppColors.primary,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -280,8 +281,8 @@ class _SignUpState extends State<SignUp> {
                     "Sign Up",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/auth/auth_service.dart';
 import 'package:quiz/pages/sign_up.dart';
+import 'package:quiz/utils/colors.dart';
+
+import 'main_page.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -24,6 +27,11 @@ class _LogInState extends State<LogIn> {
 
     try {
       await authService.signInWithEmailPassword(email, password);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const MyHomePage()),
+            (Route<dynamic> route) => false,
+      );
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context)
@@ -44,9 +52,9 @@ class _LogInState extends State<LogIn> {
               Text(
                 "Log In",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: AppColors.primary,
                   fontSize: 34,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               SizedBox(
@@ -73,7 +81,7 @@ class _LogInState extends State<LogIn> {
                         text: "Sign Up",
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.black,
+                          color: AppColors.primary,
                           fontWeight: FontWeight.w900,
                         )),
                   ]),
@@ -95,14 +103,14 @@ class _LogInState extends State<LogIn> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.grey,
+                        color: AppColors.secondary,
                         width: 1,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.black,
+                        color: AppColors.primary,
                         width: 2.0,
                       ),
                     ),
@@ -137,14 +145,14 @@ class _LogInState extends State<LogIn> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.grey,
+                        color: AppColors.secondary,
                         width: 1,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
-                        color: Colors.black,
+                        color: AppColors.primary,
                         width: 2.0,
                       ),
                     ),
@@ -160,7 +168,7 @@ class _LogInState extends State<LogIn> {
                 child: ElevatedButton(
                   onPressed: login,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: AppColors.primary,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -172,8 +180,8 @@ class _LogInState extends State<LogIn> {
                     "Log In",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
