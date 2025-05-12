@@ -316,7 +316,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: AppColors.primary)
+                    side: BorderSide(color: GlobalUser().progress > GlobalUser().currentDay
+                        ? Colors.grey[600]!  // add ! since grey[600] is Color?
+                        : AppColors.primary,)
                   ),
                   padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                 ),
@@ -324,14 +326,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "Attempt Quiz",
+                      GlobalUser().progress > GlobalUser().currentDay
+                      ?"Come back tomorrow"
+                      :"Attempt Quiz",
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(width: 10),
-                    Icon(Icons.arrow_right_alt_sharp, color: AppColors.primary, size: 30,),
+                    Icon(Icons.arrow_right_alt_sharp, size: 30,),
                   ],
                 ),
               ),
