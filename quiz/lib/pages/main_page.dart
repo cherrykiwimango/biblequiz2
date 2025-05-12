@@ -10,6 +10,7 @@ import 'package:quiz/pages/versepage.dart';
 import 'package:quiz/utils/bible_portions_manager.dart';
 import 'package:quiz/utils/colors.dart';
 import 'log_in.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -84,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 25),
+          padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 25.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -101,16 +102,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.w700,
-                              fontSize: 28,
+                              fontSize: 28.sp,
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10.h,),
                           Text(
                             "Welcome back, Let's get started",
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
-                              fontSize: 17,
+                              fontSize: 17.sp,
                             ),
                           ),
                         ],
@@ -122,8 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ClipOval(
                             child: Image.asset(
                               'assets/chad.png',
-                              width: 77,
-                              height: 77,
+                              width: 77.w,
+                              height: 77.h,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -131,14 +132,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       )
                     ],
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(height: 50.h,),
                   //the top blue box
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                       color: AppColors.secondary,
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
+                    padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 35.h),
                     child: IntrinsicHeight(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Row(
                             children: [
                               Icon(FontAwesomeIcons.barsProgress, color: AppColors.accent, size: 35,),
-                              SizedBox(width: 15,),
+                              SizedBox(width: 15.w,),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -155,16 +156,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                     style: TextStyle(
                                       color: AppColors.accent,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: 24,
+                                      fontSize: 24.sp,
                                     ),
                                   ),
-                                  SizedBox(height: 5,),
+                                  SizedBox(height: 5.h,),
                                   Text(
                                     "Your Progress",
                                     style: TextStyle(
                                       color: AppColors.accent,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                     ),
                                   ),
                                 ],
@@ -178,8 +179,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           Row(
                             children: [
-                              Icon(FontAwesomeIcons.calendarDay, color: AppColors.primary, size: 35,),
-                              SizedBox(width: 15,),
+                              Icon(FontAwesomeIcons.calendarDay, color: AppColors.primary, size: 35.w,),
+                              SizedBox(width: 15.w,),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -188,16 +189,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                     style: TextStyle(
                                       color: AppColors.primary,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: 24,
+                                      fontSize: 24.sp,
                                     ),
                                   ),
-                                  SizedBox(height: 5,),
+                                  SizedBox(height: 5.h,),
                                   Text(
                                     "Current Day",
                                     style: TextStyle(
                                       color: AppColors.primary,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                     ),
                                   ),
                                 ],
@@ -208,11 +209,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(height: 15.h,),
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                       border: Border.all(color: AppColors.secondary)
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
@@ -222,22 +223,22 @@ class _MyHomePageState extends State<MyHomePage> {
                         RichText(
                           text: TextSpan(
                             text: 'Your ',
-                            style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w800),
+                            style: TextStyle(color: Colors.black, fontSize: 24.sp, fontWeight: FontWeight.w800),
                             children: <TextSpan>[
                               TextSpan(
                                 text: 'Total Score',
-                                style: TextStyle(fontWeight: FontWeight.w800, color: AppColors.primary),
+                                style: TextStyle(fontWeight: FontWeight.w800, color: AppColors.tertiary),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 20.h,),
                         Stack(
                           alignment: Alignment.center,
                           children: [
                             SizedBox(
-                              height: 140,
-                              width: 140,
+                              height: 140.h,
+                              width: 140.w,
                               child: CircularProgressIndicator(
                                 value: 7 / 10,
                                 strokeWidth: 9,
@@ -247,8 +248,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Column(
                               children: [
-                                Text("${totalScore}", style: TextStyle(fontWeight: FontWeight.w800, color: AppColors.primary, fontSize: 36)),
-                                Text("/${GlobalUser().currentDay * 10}", style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary, fontSize: 24)),
+                                Text("${totalScore}", style: TextStyle(fontWeight: FontWeight.w800, color: AppColors.primary, fontSize: 36.sp)),
+                                Text("/${GlobalUser().currentDay * 10}", style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary, fontSize: 24.sp)),
                               ],
                             ),
                           ],
@@ -257,29 +258,29 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(height: 50.h,),
                   Column(
                     children: [
                       Row(
                         children: [
                           Icon(Icons.new_releases_rounded, color: AppColors.tertiary,),
-                          SizedBox(width: 10,),
+                          SizedBox(width: 10.w,),
                           Text(
                             "Today's Portion",
                             style: TextStyle(
                               color: AppColors.tertiary,
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       Container(
                         width: double.infinity,
                         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(20.r),
                           color: AppColors.error,
                         ),
                         child: Text(
@@ -287,7 +288,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           GlobalUser().portions,
                           style: TextStyle(
                             color: AppColors.tertiary,
-                            fontSize: 22,
+                            fontSize: 22.sp,
                             fontWeight: FontWeight.w900,
                           ),
                         ),
@@ -330,12 +331,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       ?"Come back tomorrow"
                       :"Attempt Quiz",
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 22.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 10),
-                    Icon(Icons.arrow_right_alt_sharp, size: 30,),
+                    SizedBox(width: 10.w),
+                    Icon(Icons.arrow_right_alt_sharp, size: 30.w,),
                   ],
                 ),
               ),

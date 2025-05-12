@@ -3,6 +3,7 @@ import 'package:quiz/auth/auth_gate.dart';
 import 'package:quiz/pages/main_page.dart';
 import 'package:quiz/pages/sign_up.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async{
   //supabase setup
@@ -19,13 +20,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'OpenSans',
-        useMaterial3: true,
-      ),
-      home: const AuthGate(),
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return ScreenUtilInit(
+      designSize: Size(width, height), // your design reference size
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'OpenSans',
+            useMaterial3: true,
+          ),
+          home: const AuthGate(),
+        );
+      },
     );
   }
 }
