@@ -65,7 +65,8 @@ class QuizDatabase {
     return attemptLogId;
   }
 
-  Future<void> updateUserAnswers(int attemptLogId, Map<int, String> selectedOptions, List<Map<String, dynamic>> quiz) async {
+  Future<void> updateUserAnswers(int attemptLogId,
+      Map<int, String> selectedOptions, List<Map<String, dynamic>> quiz) async {
     // Create a list of maps to insert into the user_answers table
     final List<Map<String, dynamic>> answersToInsert = [];
 
@@ -82,6 +83,34 @@ class QuizDatabase {
 
     if (answersToInsert.isNotEmpty) {
       await database.from('User_Answers').insert(answersToInsert);
+    }
+  }
+
+  Future<void> inputPortion(int day, String portion) async {
+    await database.from('Portions').insert({
+      'day': day,
+      'portion': portion,
+    });
+  }
+
+  Future<void> inputQuiz(
+      int day, String question, String answer, List<String> options) async {
+    final dayIdResponse =
+        await database.from('Portions').select('id').eq('day', day).single();
+    final dayId = dayIdResponse['id'] as int;
+
+    final response = await database.from('Questions').insert({
+      'day_id': dayId,
+      'question': question,
+      'answer': answer,
+    }).select().single();
+
+    final questionId = response['id'];
+    for(var option in options){
+      await database.from('Options').insert({
+        'question_id': questionId,
+        'option': option,
+      });
     }
   }
 }

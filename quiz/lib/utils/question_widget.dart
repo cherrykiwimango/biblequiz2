@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/utils/colors.dart';
+import 'package:quiz/utils/responsive.dart';
 
 class QuestionWidget extends StatelessWidget {
   final Map<String, dynamic> questionData;
@@ -29,21 +30,23 @@ class QuestionWidget extends StatelessWidget {
         Text(
           "Question ${index + 1}/$totalQuestions",
           style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w800,
+            fontSize: Responsive.scale*8,
+            fontWeight: FontWeight.w700,
             color: Colors.black,
+            fontFamily: 'OpenSans'
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: Responsive.heightUnit*3),
         Text(
           questionData['question'],
           style: TextStyle(
-            fontSize: 30,
+            fontSize: Responsive.scale*12,
             fontWeight: FontWeight.w800,
             color: AppColors.primary,
+            fontFamily: 'OpenSans'
           ),
         ),
-        SizedBox(height: 50),
+        SizedBox(height: Responsive.heightUnit*11),
         ...options.map((option) {
           final bool isSelected = selectedOption == option;
           return InkWell(
@@ -54,7 +57,7 @@ class QuestionWidget extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 10),
             width: double.infinity,
             padding:
-            const EdgeInsets.symmetric(horizontal: 30, vertical: 27),
+            EdgeInsets.symmetric(horizontal: Responsive.widthUnit*10, vertical: Responsive.heightUnit*6),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(12),
@@ -63,9 +66,10 @@ class QuestionWidget extends StatelessWidget {
             child: Text(
               option,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: Responsive.scale*8,
                 fontWeight: FontWeight.w700,
                 color: isSelected? Colors.white : AppColors.textPrimary,
+                fontFamily: 'OpenSans'
               ),
             ),
           ),
@@ -102,22 +106,23 @@ class QuestionCheckWidget extends StatelessWidget {
         Text(
           "Question ${index + 1}/$totalQuestions",
           style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w800,
+            fontSize: Responsive.scale*8,
+            fontWeight: FontWeight.w700,
             color: Colors.black,
+            fontFamily: 'OpenSans'
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: Responsive.heightUnit*3),
         Text(
           questionData['question'],
           style: TextStyle(
-            fontSize: 30,
+            fontSize: Responsive.scale*12,
             fontWeight: FontWeight.w800,
             color: AppColors.primary,
             fontFamily: 'OpenSans'
           ),
         ),
-        SizedBox(height: 50),
+        SizedBox(height: Responsive.heightUnit*11),
         ...options.map((option) {
           final bool isSelected = selectedOption == option;
           final bool isCorrect = questionData['answer'] == option;
@@ -125,7 +130,7 @@ class QuestionCheckWidget extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 10),
             width: double.infinity,
             padding:
-            const EdgeInsets.symmetric(horizontal: 30, vertical: 27),
+            EdgeInsets.symmetric(horizontal: Responsive.widthUnit*10, vertical: Responsive.heightUnit*6),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(12),
@@ -137,9 +142,10 @@ class QuestionCheckWidget extends StatelessWidget {
             child: Text(
               option,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: Responsive.scale*8,
                 fontWeight: FontWeight.w700,
                 color: AppColors.textPrimary,
+                fontFamily: 'OpenSans'
               ),
             ),
           );
@@ -148,9 +154,10 @@ class QuestionCheckWidget extends StatelessWidget {
         Text(
           'Answer: ${questionData['answer']}',
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
+            fontSize: Responsive.scale*7.5,
+            fontWeight: FontWeight.w600,
             color: Colors.green,
+            fontFamily: 'OpenSans'
           ),
         )
       ],

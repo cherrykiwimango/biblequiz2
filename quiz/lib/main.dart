@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            fontFamily: 'OpenSans',
             useMaterial3: true,
           ),
           home: const AuthGate(),

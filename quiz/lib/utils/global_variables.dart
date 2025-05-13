@@ -13,7 +13,7 @@ class GlobalUser{
   int progress = 0;
   int currentDay = 0;
   List<Map<String, dynamic>>? quiz;
-  DateTime startDate = DateTime(2025, 05, 04);
+  DateTime startDate = DateTime(2025, 05, 12);
 
   void updateFromMap(Map<String, dynamic> data) {
     userId = data['id'] ?? 0;

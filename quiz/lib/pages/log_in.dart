@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/auth/auth_service.dart';
+import 'package:quiz/pages/admin_page.dart';
 import 'package:quiz/pages/sign_up.dart';
 import 'package:quiz/utils/colors.dart';
+import 'package:quiz/utils/responsive.dart';
 
 import 'main_page.dart';
 
@@ -27,11 +29,20 @@ class _LogInState extends State<LogIn> {
 
     try {
       await authService.signInWithEmailPassword(email, password);
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const MyHomePage()),
-            (Route<dynamic> route) => false,
-      );
+      if(email == 'vsajujacob@gmail.com'){
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const AdminPage()),
+              (Route<dynamic> route) => false,
+        );
+      }
+      else{
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const MyHomePage()),
+              (Route<dynamic> route) => false,
+        );
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context)
@@ -42,6 +53,7 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(20.0),
@@ -53,12 +65,13 @@ class _LogInState extends State<LogIn> {
                 "Log In",
                 style: TextStyle(
                   color: AppColors.primary,
-                  fontSize: 34,
+                  fontSize: Responsive.scale*14,
                   fontWeight: FontWeight.w800,
+                  fontFamily: 'OpenSans'
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: Responsive.heightUnit*3,
               ),
               GestureDetector(
                 onTap: () {
@@ -73,22 +86,24 @@ class _LogInState extends State<LogIn> {
                     TextSpan(
                         text: "New around here? ",
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: Responsive.scale*7,
                           color: Colors.black,
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'OpenSans'
                         )),
                     TextSpan(
                         text: "Sign Up",
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: Responsive.scale*7,
                           color: AppColors.primary,
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: 'OpenSans'
                         )),
                   ]),
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: Responsive.heightUnit*12,
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),
@@ -96,8 +111,9 @@ class _LogInState extends State<LogIn> {
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
+                    labelStyle: TextStyle(color: AppColors.primary, fontFamily: 'OpenSans', ),
                     hintText: 'Enter your text',
-                    hintStyle: TextStyle(color: Colors.grey[600]),
+                    hintStyle: TextStyle(color: Colors.grey[600], fontFamily: 'OpenSans', ),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -116,8 +132,9 @@ class _LogInState extends State<LogIn> {
                     ),
                   ),
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: Responsive.scale*7,
                     color: Colors.black87,
+                    fontFamily: 'OpenSans'
                   ),
                 ),
               ),
@@ -138,8 +155,9 @@ class _LogInState extends State<LogIn> {
                       },
                     ),
                     labelText: 'Password',
+                    labelStyle: TextStyle(color: AppColors.primary, fontFamily: 'OpenSans', ),
                     hintText: 'Enter your password',
-                    hintStyle: TextStyle(color: Colors.grey[600]),
+                    hintStyle: TextStyle(color: Colors.grey[600], fontFamily: 'OpenSans', ),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -158,8 +176,9 @@ class _LogInState extends State<LogIn> {
                     ),
                   ),
                   style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black87,
+                      fontSize: Responsive.scale*7,
+                      color: Colors.black87,
+                      fontFamily: 'OpenSans'
                   ),
                 ),
               ),
@@ -180,8 +199,9 @@ class _LogInState extends State<LogIn> {
                     "Log In",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: Responsive.scale*9,
                       fontWeight: FontWeight.w800,
+                      fontFamily: 'OpenSans'
                     ),
                   ),
                 ),

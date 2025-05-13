@@ -7,6 +7,8 @@ import 'package:quiz/utils/colors.dart';
 import 'package:quiz/utils/global_variables.dart';
 import 'package:lottie/lottie.dart';
 
+import '../utils/responsive.dart';
+
 class ScorePage extends StatefulWidget {
   const ScorePage(
       {super.key, required this.selectedOptions, required this.score});
@@ -34,14 +36,15 @@ class _ScorePageState extends State<ScorePage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: EdgeInsets.symmetric(
+                  horizontal: Responsive.widthUnit * 5),
               child: Column(
                 // mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(vertical: 25, horizontal: 25),
+                    padding: EdgeInsets.symmetric(vertical: Responsive.heightUnit*5, horizontal: Responsive.widthUnit*5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: AppColors.secondary),
@@ -50,14 +53,14 @@ class _ScorePageState extends State<ScorePage> {
                       children: [
                         SvgPicture.asset(
                           'assets/trophy-svgrepo-com.svg',
-                          width: 200,
-                          height: 200,
+                          width: Responsive.heightUnit*42,
+                          height: Responsive.heightUnit*42,
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(height: Responsive.heightUnit*6,),
                         RichText(
                           text: TextSpan(
                             text: 'Your ',
-                            style: TextStyle(color: Colors.black, fontSize: 28, fontWeight: FontWeight.w800, fontFamily: 'OpenSans'),
+                            style: TextStyle(color: Colors.black, fontSize: Responsive.scale*13, fontWeight: FontWeight.w800, fontFamily: 'OpenSans'),
                             children: <TextSpan>[
                               TextSpan(
                                 text: 'Final Score !',
@@ -67,22 +70,23 @@ class _ScorePageState extends State<ScorePage> {
                           ),
                         ),
                         SizedBox(
-                          height: 5,
+                          height: Responsive.heightUnit,
                         ),
                         Text(
                           widget.score < 4 ? "Try harder next time" : "Great job! See you next time",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: 18,
+                            fontSize: Responsive.scale*7.5,
+                            fontFamily: 'OpenSans'
                           ),
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(height: Responsive.heightUnit*7),
                         Stack(
                           alignment: Alignment.center,
                           children: [
                             SizedBox(
-                              height: 140,
-                              width: 140,
+                              height: Responsive.heightUnit*30,
+                              width: Responsive.heightUnit*30,
                               child: CircularProgressIndicator(
                                 value: widget.score / GlobalUser().quiz!.length,
                                 strokeWidth: 9,
@@ -95,22 +99,23 @@ class _ScorePageState extends State<ScorePage> {
                                 RichText(
                                   text: TextSpan(
                                     text: '${widget.score}',
-                                    style: TextStyle(color: AppColors.primary, fontSize: 42, fontWeight: FontWeight.w800, fontFamily: 'OpenSans'),
+                                    style: TextStyle(color: AppColors.primary, fontSize: Responsive.scale*19, fontWeight: FontWeight.w800, fontFamily: 'OpenSans'),
                                     children: <TextSpan>[
                                       TextSpan(
                                         text: '/${GlobalUser().quiz!.length}',
-                                        style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary, fontSize: 24),
+                                        style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary, fontSize: Responsive.scale*12, fontFamily: 'OpenSans'),
                                       ),
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 5),
+                                SizedBox(height: Responsive.heightUnit),
                                 Text(
                                   "Day ${GlobalUser().progress}",
                                   style: TextStyle(
                                     color: AppColors.primary,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700
+                                    fontSize: Responsive.scale*8,
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'OpenSans'
                                   ),
                                 ),
                               ],
@@ -118,7 +123,7 @@ class _ScorePageState extends State<ScorePage> {
                           ],
                         ),
                         SizedBox(
-                          height: 50,
+                          height: Responsive.heightUnit*12,
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -137,14 +142,15 @@ class _ScorePageState extends State<ScorePage> {
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             padding:
-                            EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                            EdgeInsets.symmetric(vertical: Responsive.heightUnit*4, horizontal: Responsive.widthUnit*12),
                           ),
                           child: Text(
                             "Check Answers",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                              fontSize: Responsive.scale*9,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'OpenSans'
                             ),
                           ),
                         ),
@@ -170,7 +176,7 @@ class _ScorePageState extends State<ScorePage> {
                           borderRadius: BorderRadius.circular(15.0),
                           side: BorderSide(color: AppColors.primary)
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                      padding: EdgeInsets.symmetric(vertical: Responsive.heightUnit*5, horizontal: Responsive.widthUnit*12),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -178,8 +184,9 @@ class _ScorePageState extends State<ScorePage> {
                         Text(
                           "Go Home",
                           style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
+                            fontSize: Responsive.scale*10,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'OpenSans'
                           ),
                         ),
                         SizedBox(width: 10),

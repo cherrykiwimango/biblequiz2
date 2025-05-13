@@ -10,6 +10,7 @@ authenticated -> Main Page
 import 'package:flutter/material.dart';
 import 'package:quiz/pages/main_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../pages/admin_page.dart';
 import '../pages/log_in.dart';
 
 class AuthGate extends StatelessWidget {
@@ -36,7 +37,13 @@ class AuthGate extends StatelessWidget {
         final session = snapshot.hasData ? snapshot.data!.session : null;
 
         if(session != null){
-          return MyHomePage();
+          final userEmail = session.user.email;
+          if(userEmail == 'vsajujacob@gmail.com'){
+            return const AdminPage();
+          }
+          else{
+            return const MyHomePage();
+          }
         }
         else{
           return const LogIn();

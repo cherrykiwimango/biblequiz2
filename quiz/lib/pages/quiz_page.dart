@@ -4,6 +4,7 @@ import 'package:quiz/pages/score_page.dart';
 import 'package:quiz/utils/colors.dart';
 import 'package:quiz/utils/global_variables.dart';
 import 'package:quiz/database/quiz_database.dart';
+import 'package:quiz/utils/responsive.dart';
 
 import '../utils/question_widget.dart';
 
@@ -37,34 +38,36 @@ class _QuizState extends State<Quiz> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 100,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: AppColors.error,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Text(
-            GlobalUser().portions,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
-              color: AppColors.tertiary,
+          toolbarHeight: Responsive.heightUnit * 20,
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppColors.error,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              GlobalUser().portions,
+              style: TextStyle(
+                fontSize: Responsive.scale * 9,
+                fontWeight: FontWeight.w800,
+                color: AppColors.tertiary,
+                fontFamily: 'OpenSans'
+              ),
             ),
           ),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
-          onPressed: (){
-            Navigator.pop(context);
-          },
-        )
-      ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 30),
+          padding: EdgeInsets.symmetric(
+              horizontal: Responsive.widthUnit * 5,
+              vertical: Responsive.heightUnit * 7),
           child: Column(
             children: [
               if (quiz == null)
@@ -83,7 +86,7 @@ class _QuizState extends State<Quiz> {
                         index: index,
                         totalQuestions: quiz!.length,
                         selectedOption: selectedOptions[index] ?? "",
-                        onOptionSelected: (option){
+                        onOptionSelected: (option) {
                           setState(() {
                             selectedOptions[index] = option;
                           });
@@ -94,58 +97,78 @@ class _QuizState extends State<Quiz> {
                 ),
               ElevatedButton(
                 onPressed: () async {
-                  try {
-                    int score = calculateScore(selectedOptions);
+                  final isLastPage = _pageController.page?.round() == quiz!.length - 1;
 
-                    int attemptLogId = await quizObject.updateQuizLog(GlobalUser().userId, GlobalUser().progress);
+                  if (!isLastPage) {
+                    _pageController.nextPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  } else {
+                    try {
+                      int score = calculateScore(selectedOptions);
 
-                    await quizObject.updateUserAnswers(attemptLogId, selectedOptions, quiz!);
+                      int attemptLogId = await quizObject.updateQuizLog(
+                          GlobalUser().userId, GlobalUser().progress);
 
-                    await userDb.updateProgress(GlobalUser().progress + 1);
-                    await userDb.updateScore(score);
+                      await quizObject.updateUserAnswers(
+                          attemptLogId, selectedOptions, quiz!);
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ScorePage(
-                          selectedOptions: selectedOptions,
-                          score: score,
+                      await userDb.updateProgress(GlobalUser().progress + 1);
+                      await userDb.updateScore(score);
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ScorePage(
+                            selectedOptions: selectedOptions,
+                            score: score,
+                          ),
                         ),
-                      ),
-                    );
-                  } catch (e, stack) {
-                    print('❌ Error occurred: $e');
-                    print('🧱 Stack trace: $stack');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Something went wrong: $e')),
-                    );
+                      );
+                    } catch (e, stack) {
+                      print('❌ Error occurred: $e');
+                      print('🧱 Stack trace: $stack');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Something went wrong: $e')),
+                      );
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.secondary,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(
-                      color: AppColors.primary
-                    )
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: AppColors.primary)),
+                  padding: EdgeInsets.symmetric(
+                    vertical: Responsive.heightUnit * 4,
+                    horizontal: Responsive.widthUnit * 12,
                   ),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "Submit",
+                      _pageController.hasClients &&
+                          _pageController.page?.round() == quiz!.length - 1
+                          ? "Submit"
+                          : "Next",
                       style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary
-                      ),
+                          fontSize: Responsive.scale * 10,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'OpenSans',
+                          color: AppColors.primary),
                     ),
                     SizedBox(width: 10),
-                    Icon(Icons.arrow_right_alt_sharp, color: AppColors.primary, size: 30,),
+                    Icon(
+                      _pageController.hasClients &&
+                          _pageController.page?.round() == quiz!.length - 1
+                          ? Icons.check
+                          : Icons.arrow_right_alt_sharp,
+                      color: AppColors.primary,
+                      size: 30,
+                    ),
                   ],
                 ),
               ),

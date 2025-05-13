@@ -4,6 +4,7 @@ import 'package:quiz/database/user_database.dart';
 import 'package:quiz/pages/log_in.dart';
 import 'package:quiz/utils/colors.dart';
 
+import '../utils/responsive.dart';
 import 'main_page.dart';
 
 class SignUp extends StatefulWidget {
@@ -71,13 +72,14 @@ class _SignUpState extends State<SignUp> {
               Text(
                 "Sign Up",
                 style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: 34,
-                  fontWeight: FontWeight.w800,
+                    color: AppColors.primary,
+                    fontSize: Responsive.scale*14,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'OpenSans'
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: Responsive.heightUnit*3,
               ),
               GestureDetector(
                 onTap: () {
@@ -92,22 +94,24 @@ class _SignUpState extends State<SignUp> {
                     TextSpan(
                         text: "Already have an Account? ",
                         style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal,
+                            fontSize: Responsive.scale*7,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'OpenSans'
                         )),
                     TextSpan(
                         text: "Log In",
                         style: TextStyle(
-                          fontSize: 18,
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w900,
+                            fontSize: Responsive.scale*7,
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: 'OpenSans'
                         )),
                   ]),
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: Responsive.heightUnit*12,
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),
@@ -115,8 +119,9 @@ class _SignUpState extends State<SignUp> {
                   controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Name',
+                    labelStyle: TextStyle(color: AppColors.primary, fontFamily: 'OpenSans', ),
                     hintText: 'Enter your name',
-                    hintStyle: TextStyle(color: Colors.grey[600]),
+                    hintStyle: TextStyle(color: Colors.grey[600], fontFamily: 'OpenSans', ),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -135,8 +140,9 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black87,
+                      fontSize: Responsive.scale*7,
+                      color: Colors.black87,
+                      fontFamily: 'OpenSans'
                   ),
                 ),
               ),
@@ -146,8 +152,9 @@ class _SignUpState extends State<SignUp> {
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
+                    labelStyle: TextStyle(color: AppColors.primary, fontFamily: 'OpenSans', ),
                     hintText: 'Enter your text',
-                    hintStyle: TextStyle(color: Colors.grey[600]),
+                    hintStyle: TextStyle(color: Colors.grey[600], fontFamily: 'OpenSans', ),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -166,8 +173,9 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black87,
+                      fontSize: Responsive.scale*7,
+                      color: Colors.black87,
+                      fontFamily: 'OpenSans'
                   ),
                 ),
               ),
@@ -188,8 +196,9 @@ class _SignUpState extends State<SignUp> {
                       },
                     ),
                     labelText: 'Password',
+                    labelStyle: TextStyle(color: AppColors.primary, fontFamily: 'OpenSans', ),
                     hintText: 'Enter your password',
-                    hintStyle: TextStyle(color: Colors.grey[600]),
+                    hintStyle: TextStyle(color: Colors.grey[600], fontFamily: 'OpenSans', ),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -208,8 +217,9 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black87,
+                      fontSize: Responsive.scale*7,
+                      color: Colors.black87,
+                      fontFamily: 'OpenSans'
                   ),
                 ),
               ),
@@ -230,8 +240,9 @@ class _SignUpState extends State<SignUp> {
                       },
                     ),
                     labelText: 'Confirm Password',
+                    labelStyle: TextStyle(color: AppColors.primary, fontFamily: 'OpenSans', ),
                     hintText: 'Match the above password',
-                    hintStyle: TextStyle(color: Colors.grey[600]),
+                    hintStyle: TextStyle(color: Colors.grey[600], fontFamily: 'OpenSans', ),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -250,8 +261,9 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black87,
+                      fontSize: Responsive.scale*7,
+                      color: Colors.black87,
+                      fontFamily: 'OpenSans'
                   ),
                 ),
               ),
@@ -271,9 +283,10 @@ class _SignUpState extends State<SignUp> {
                   child: Text(
                     "Sign Up",
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        fontSize: Responsive.scale*9,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: 'OpenSans'
                     ),
                   ),
                 ),

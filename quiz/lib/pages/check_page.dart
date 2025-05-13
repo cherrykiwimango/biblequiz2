@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/colors.dart';
 import '../utils/global_variables.dart';
 import '../utils/question_widget.dart';
+import '../utils/responsive.dart';
 
 class CheckPage extends StatefulWidget {
   const CheckPage(
@@ -24,7 +25,7 @@ class _CheckPageState extends State<CheckPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          toolbarHeight: 100,
+          toolbarHeight: Responsive.heightUnit * 20,
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Container(
@@ -36,7 +37,7 @@ class _CheckPageState extends State<CheckPage> {
             child: Text(
               'Your Score: ${widget.score}/${quiz!.length}',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: Responsive.scale * 9,
                 fontWeight: FontWeight.w800,
                 color: AppColors.tertiary,
               ),
@@ -51,7 +52,7 @@ class _CheckPageState extends State<CheckPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+          padding: EdgeInsets.symmetric(horizontal: Responsive.widthUnit * 5, vertical: Responsive.heightUnit * 7),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -75,6 +76,57 @@ class _CheckPageState extends State<CheckPage> {
                     },
                   ),
                 ),
+              ElevatedButton(
+                onPressed: () async {
+                  final isLastPage = _pageController.page?.round() == quiz!.length - 1;
+
+                  if (!isLastPage) {
+                    _pageController.nextPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  }
+                  else{
+                    Navigator.pop(context);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.secondary,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: AppColors.primary)),
+                  padding: EdgeInsets.symmetric(
+                    vertical: Responsive.heightUnit * 4,
+                    horizontal: Responsive.widthUnit * 12,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      _pageController.hasClients &&
+                          _pageController.page?.round() == quiz!.length - 1
+                          ? "Done"
+                          : "Next",
+                      style: TextStyle(
+                          fontSize: Responsive.scale * 10,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'OpenSans',
+                          color: AppColors.primary),
+                    ),
+                    SizedBox(width: 10),
+                    Icon(
+                      _pageController.hasClients &&
+                          _pageController.page?.round() == quiz!.length - 1
+                          ? Icons.check
+                          : Icons.arrow_right_alt_sharp,
+                      color: AppColors.primary,
+                      size: 30,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

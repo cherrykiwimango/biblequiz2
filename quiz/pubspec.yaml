@@ -73,6 +73,12 @@ flutter:
     - assets/trophy-svgrepo-com.svg
     - assets/Animation - 1746593687521.json
     - assets/Animation - 1746595557545.json
+    - assets/saint1.jpg
+    - assets/saint2.jpg
+    - assets/saint3.jpg
+    - assets/saint4.jpg
+    - assets/saint5.jpg
+    - assets/saint6.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
