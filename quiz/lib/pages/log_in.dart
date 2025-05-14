@@ -32,7 +32,7 @@ class _LogInState extends State<LogIn> {
       if(email == 'vsajujacob@gmail.com'){
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const AdminPage()),
+          MaterialPageRoute(builder: (context) => const AdminHome()),
               (Route<dynamic> route) => false,
         );
       }
@@ -55,6 +55,7 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     Responsive.init(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: Center(

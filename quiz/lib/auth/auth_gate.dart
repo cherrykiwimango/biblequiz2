@@ -39,7 +39,7 @@ class AuthGate extends StatelessWidget {
         if(session != null){
           final userEmail = session.user.email;
           if(userEmail == 'vsajujacob@gmail.com'){
-            return const AdminPage();
+            return const AdminHome();
           }
           else{
             return const MyHomePage();

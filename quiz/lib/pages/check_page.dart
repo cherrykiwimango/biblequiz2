@@ -29,7 +29,7 @@ class _CheckPageState extends State<CheckPage> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.symmetric(vertical: Responsive.heightUnit*3, horizontal: Responsive.widthUnit*5),
             decoration: BoxDecoration(
               color: AppColors.error,
               borderRadius: BorderRadius.circular(20),
@@ -40,6 +40,7 @@ class _CheckPageState extends State<CheckPage> {
                 fontSize: Responsive.scale * 9,
                 fontWeight: FontWeight.w800,
                 color: AppColors.tertiary,
+                fontFamily: 'OpenSans'
               ),
             ),
           ),
@@ -76,57 +77,57 @@ class _CheckPageState extends State<CheckPage> {
                     },
                   ),
                 ),
-              ElevatedButton(
-                onPressed: () async {
-                  final isLastPage = _pageController.page?.round() == quiz!.length - 1;
-
-                  if (!isLastPage) {
-                    _pageController.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                  else{
-                    Navigator.pop(context);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.secondary,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                      side: BorderSide(color: AppColors.primary)),
-                  padding: EdgeInsets.symmetric(
-                    vertical: Responsive.heightUnit * 4,
-                    horizontal: Responsive.widthUnit * 12,
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      _pageController.hasClients &&
-                          _pageController.page?.round() == quiz!.length - 1
-                          ? "Done"
-                          : "Next",
-                      style: TextStyle(
-                          fontSize: Responsive.scale * 10,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'OpenSans',
-                          color: AppColors.primary),
-                    ),
-                    SizedBox(width: 10),
-                    Icon(
-                      _pageController.hasClients &&
-                          _pageController.page?.round() == quiz!.length - 1
-                          ? Icons.check
-                          : Icons.arrow_right_alt_sharp,
-                      color: AppColors.primary,
-                      size: 30,
-                    ),
-                  ],
-                ),
-              ),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     final isLastPage = _pageController.page?.round() == quiz!.length - 1;
+              //
+              //     if (!isLastPage) {
+              //       _pageController.nextPage(
+              //         duration: Duration(milliseconds: 300),
+              //         curve: Curves.easeInOut,
+              //       );
+              //     }
+              //     else{
+              //       Navigator.pop(context);
+              //     }
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: AppColors.secondary,
+              //     elevation: 0,
+              //     shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15.0),
+              //         side: BorderSide(color: AppColors.primary)),
+              //     padding: EdgeInsets.symmetric(
+              //       vertical: Responsive.heightUnit * 4,
+              //       horizontal: Responsive.widthUnit * 12,
+              //     ),
+              //   ),
+              //   child: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: [
+              //       Text(
+              //         _pageController.hasClients &&
+              //             _pageController.page?.round() == quiz!.length - 1
+              //             ? "Done"
+              //             : "Next",
+              //         style: TextStyle(
+              //             fontSize: Responsive.scale * 10,
+              //             fontWeight: FontWeight.w700,
+              //             fontFamily: 'OpenSans',
+              //             color: AppColors.primary),
+              //       ),
+              //       SizedBox(width: 10),
+              //       Icon(
+              //         _pageController.hasClients &&
+              //             _pageController.page?.round() == quiz!.length - 1
+              //             ? Icons.check
+              //             : Icons.arrow_right_alt_sharp,
+              //         color: AppColors.primary,
+              //         size: 30,
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

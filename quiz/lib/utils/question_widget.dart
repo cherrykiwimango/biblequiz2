@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/utils/colors.dart';
 import 'package:quiz/utils/responsive.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class QuestionWidget extends StatelessWidget {
   final Map<String, dynamic> questionData;
@@ -37,16 +38,20 @@ class QuestionWidget extends StatelessWidget {
           ),
         ),
         SizedBox(height: Responsive.heightUnit*3),
-        Text(
-          questionData['question'],
-          style: TextStyle(
-            fontSize: Responsive.scale*12,
-            fontWeight: FontWeight.w800,
-            color: AppColors.primary,
-            fontFamily: 'OpenSans'
+        Container(
+          height: MediaQuery.of(context).size.height*0.135,
+          width: double.infinity,
+          child: AutoSizeText(
+            questionData['question'],
+            style: TextStyle(
+              fontSize: Responsive.scale*12,
+              fontWeight: FontWeight.w800,
+              color: AppColors.primary,
+              fontFamily: 'OpenSans'
+            ),
           ),
         ),
-        SizedBox(height: Responsive.heightUnit*11),
+        SizedBox(height: Responsive.heightUnit*5),
         ...options.map((option) {
           final bool isSelected = selectedOption == option;
           return InkWell(
@@ -54,22 +59,26 @@ class QuestionWidget extends StatelessWidget {
             onOptionSelected(option);
           },
           child: Container(
+            height: MediaQuery.of(context).size.height*0.11,
             margin: const EdgeInsets.only(bottom: 10),
             width: double.infinity,
             padding:
-            EdgeInsets.symmetric(horizontal: Responsive.widthUnit*10, vertical: Responsive.heightUnit*6),
+            EdgeInsets.symmetric(horizontal: Responsive.widthUnit*10, vertical: Responsive.heightUnit*3),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(12),
               color: isSelected? AppColors.primary : Colors.transparent,
             ),
-            child: Text(
-              option,
-              style: TextStyle(
-                fontSize: Responsive.scale*8,
-                fontWeight: FontWeight.w700,
-                color: isSelected? Colors.white : AppColors.textPrimary,
-                fontFamily: 'OpenSans'
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                option,
+                style: TextStyle(
+                  fontSize: Responsive.scale*8,
+                  fontWeight: FontWeight.w700,
+                  color: isSelected? Colors.white : AppColors.textPrimary,
+                  fontFamily: 'OpenSans'
+                ),
               ),
             ),
           ),
@@ -113,24 +122,29 @@ class QuestionCheckWidget extends StatelessWidget {
           ),
         ),
         SizedBox(height: Responsive.heightUnit*3),
-        Text(
-          questionData['question'],
-          style: TextStyle(
-            fontSize: Responsive.scale*12,
-            fontWeight: FontWeight.w800,
-            color: AppColors.primary,
-            fontFamily: 'OpenSans'
+        Container(
+          height: MediaQuery.of(context).size.height*0.135,
+          width: double.infinity,
+          child: AutoSizeText(
+            questionData['question'],
+            style: TextStyle(
+                fontSize: Responsive.scale*12,
+                fontWeight: FontWeight.w800,
+                color: AppColors.primary,
+                fontFamily: 'OpenSans'
+            ),
           ),
         ),
-        SizedBox(height: Responsive.heightUnit*11),
+        SizedBox(height: Responsive.heightUnit*5),
         ...options.map((option) {
           final bool isSelected = selectedOption == option;
           final bool isCorrect = questionData['answer'] == option;
           return Container(
+            height: MediaQuery.of(context).size.height*0.11,
             margin: const EdgeInsets.only(bottom: 10),
             width: double.infinity,
             padding:
-            EdgeInsets.symmetric(horizontal: Responsive.widthUnit*10, vertical: Responsive.heightUnit*6),
+            EdgeInsets.symmetric(horizontal: Responsive.widthUnit*10, vertical: Responsive.heightUnit*3),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(12),
@@ -139,25 +153,31 @@ class QuestionCheckWidget extends StatelessWidget {
               ?AppColors.success :AppColors.error
               :Colors.transparent
             ),
-            child: Text(
-              option,
-              style: TextStyle(
-                fontSize: Responsive.scale*8,
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
-                fontFamily: 'OpenSans'
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                option,
+                style: TextStyle(
+                  fontSize: Responsive.scale*8,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                  fontFamily: 'OpenSans'
+                ),
               ),
             ),
           );
         }),
-        SizedBox(height: 30,),
-        Text(
-          'Answer: ${questionData['answer']}',
-          style: TextStyle(
-            fontSize: Responsive.scale*7.5,
-            fontWeight: FontWeight.w600,
-            color: Colors.green,
-            fontFamily: 'OpenSans'
+        SizedBox(height: 20,),
+        Container(
+          height: Responsive.heightUnit*15,
+          child: AutoSizeText(
+            'Answer: ${questionData['answer']}',
+            style: TextStyle(
+              fontSize: Responsive.scale*7.5,
+              fontWeight: FontWeight.w600,
+              color: Colors.green,
+              fontFamily: 'OpenSans'
+            ),
           ),
         )
       ],

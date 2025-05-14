@@ -42,7 +42,7 @@ class _QuizState extends State<Quiz> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.symmetric(vertical: Responsive.heightUnit*3, horizontal: Responsive.widthUnit*5),
             decoration: BoxDecoration(
               color: AppColors.error,
               borderRadius: BorderRadius.circular(20),
