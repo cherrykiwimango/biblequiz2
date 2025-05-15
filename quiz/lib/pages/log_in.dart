@@ -60,8 +60,11 @@ class _LogInState extends State<LogIn> {
         padding: EdgeInsets.all(20.0),
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
+              Image.asset('assets/logobible2.png', width: Responsive.heightUnit*40,),
+              SizedBox(height: Responsive.heightUnit*10),
               Text(
                 "Log In",
                 style: TextStyle(

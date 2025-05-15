@@ -1,11 +1,11 @@
 {
-    "name": "quiz",
-    "short_name": "quiz",
+    "name": "BibleYathra",
+    "short_name": "BibleYathra",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#2A4996",
+    "theme_color": "#2A4996",
+    "description": "Bible Quiz App",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

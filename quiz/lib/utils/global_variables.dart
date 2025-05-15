@@ -7,6 +7,7 @@ class GlobalUser{
   String name = '';
   String email = '';
   int userId = 0;
+  String profile = '';
 
   //Quiz details
   String portions = '';
@@ -19,7 +20,8 @@ class GlobalUser{
     userId = data['id'] ?? 0;
     name = data['user_name'] ?? '';
     email = data['user_email'] ?? '';
-    progress = data['progress'] ?? 0;//not sure if this will bite me in the butt later
+    progress = data['progress'] ?? 0;
+    profile = data['profile'] ?? 'assets/saint1.jpg';
     print(data['progress']);
     print(progress);
   }

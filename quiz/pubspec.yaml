@@ -47,7 +47,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: "^0.14.3"
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/book_3389391.png"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -80,6 +84,9 @@ flutter:
     - assets/saint4.jpg
     - assets/saint5.jpg
     - assets/saint6.jpg
+    - assets/book_3389391.png
+    - assets/logobible.png
+    - assets/logobible2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

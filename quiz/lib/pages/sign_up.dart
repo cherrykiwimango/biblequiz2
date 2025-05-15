@@ -70,6 +70,8 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Image.asset('assets/logobible2.png', width: Responsive.heightUnit*40,),
+              SizedBox(height: Responsive.heightUnit*10),
               Text(
                 "Sign Up",
                 style: TextStyle(

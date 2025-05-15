@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quiz/auth/auth_service.dart';
 import 'package:quiz/database/quiz_database.dart';
@@ -106,10 +107,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       for (var imagePath in _profileImages)
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async{
                             setState(() {
-                              _selectedProfileImage = imagePath;
+                              GlobalUser().profile = imagePath;
                             });
+                            await database.updateProfile(imagePath);
                             Navigator.pop(context); // Close dialog
                           },
                           child: ClipOval(
@@ -173,7 +175,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    int todayScore = GlobalUser().currentDay * 10;
     Responsive.init(context);
     if (_isLoading) {
       return const Scaffold(
@@ -224,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () => _showImagePickerDialog(context),
                     child: ClipOval(
                       child: Image.asset(
-                        _selectedProfileImage,
+                        GlobalUser().profile,
                         width: Responsive.heightUnit * 20,
                         height: Responsive.heightUnit * 20,
                         fit: BoxFit.cover,
@@ -341,67 +342,70 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: AppColors.secondary)),
                     padding: EdgeInsets.symmetric(
-                        horizontal: Responsive.widthUnit * 2,
-                        vertical: Responsive.heightUnit * 8),
-                    child: IntrinsicHeight(
-                      child: Column(
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              text: 'Your ',
+                        vertical: Responsive.heightUnit * 7),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Total Score',
                               style: TextStyle(
-                                color: Colors.black,
-                                fontSize: Responsive.scale * 11,
-                                fontWeight: FontWeight.w800,
-                                fontFamily: 'OpenSans',
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: 'Total Score',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w800,
-                                      color: AppColors.primary),
-                                ),
-                              ],
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: Responsive.scale*8,
+                                  fontFamily: 'OpenSans',
+                                  color: AppColors.primary),
                             ),
-                          ),
-                          SizedBox(
-                            height: Responsive.heightUnit * 5,
-                          ),
-                          Stack(
-                            alignment: Alignment.center,
+                            Row(
+                              children: [
+                                Text("$totalScore",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w800,
+                                        color: AppColors.primary,
+                                        fontFamily: 'OpenSans',
+                                        fontSize: Responsive.scale * 25)),
+                                Text("/${GlobalUser().currentDay * 10}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontFamily: 'OpenSans',
+                                        color: AppColors.primary,
+                                        fontSize: Responsive.scale * 13)),
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: Responsive.heightUnit * 42,
+                          height: Responsive.heightUnit * 42,
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
                             children: [
-                              SizedBox(
-                                height: Responsive.heightUnit * 32, //exception
-                                width: Responsive.heightUnit * 32,
-                                child: CircularProgressIndicator(
-                                  value: totalScore / todayScore,
-                                  strokeWidth: 9,
-                                  backgroundColor: AppColors.neutral,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      AppColors.primary),
+                              // Background trophy with lower opacity
+                              Opacity(
+                                opacity: 0.3,
+                                child: SvgPicture.asset(
+                                  'assets/trophy-svgrepo-com.svg',
+                                  fit: BoxFit.contain,
                                 ),
                               ),
-                              Column(
-                                children: [
-                                  Text("$totalScore",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          color: AppColors.primary,
-                                          fontFamily: 'OpenSans',
-                                          fontSize: Responsive.scale * 18)),
-                                  Text("/${GlobalUser().currentDay * 10}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontFamily: 'OpenSans',
-                                          color: AppColors.primary,
-                                          fontSize: Responsive.scale * 10)),
-                                ],
+
+                              // Clipped foreground trophy to simulate fill
+                              ClipRect(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  heightFactor: (totalScore / (GlobalUser().currentDay * 10)).clamp(0.0, 1.0),
+                                  child: SvgPicture.asset(
+                                    'assets/trophy-svgrepo-com.svg',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                               ),
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(

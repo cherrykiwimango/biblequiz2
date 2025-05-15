@@ -15,27 +15,31 @@ class UserDatabase {
 
   //Read
   Future<Map<String, dynamic>> getUserDetails(String currentUserEmail) async {
-      final user = await database.from('User')
-          .select('id, user_email, user_name, progress')
-          .eq('user_email', currentUserEmail)
-          .single();
-      return user;
+    final user = await database
+        .from('User')
+        .select('id, user_email, user_name, progress, profile')
+        .eq('user_email', currentUserEmail)
+        .single();
+    return user;
   }
 
   Future updateProgress(int progress) async {
     await database
         .from('User') // Use your actual table name here
-        .update({'progress': progress})
-        .eq('id', GlobalUser().userId); // Target a specific user row
+        .update({'progress': progress}).eq(
+            'id', GlobalUser().userId); // Target a specific user row
+  }
+
+  Future updateProfile(String profile) async {
+    await database
+        .from('User')
+        .update({'profile': profile}).eq('id', GlobalUser().userId);
   }
 
   Future<void> updateScore(int score) async {
     final userId = GlobalUser().userId;
-    final response = await database
-        .from('User')
-        .select('score')
-        .eq('id', userId)
-        .single();
+    final response =
+        await database.from('User').select('score').eq('id', userId).single();
 
     if (response == null || response['score'] == null) {
       throw Exception("Failed to fetch current score");
@@ -49,18 +53,14 @@ class UserDatabase {
     // Step 3: Update the new score in the database
     await database
         .from('User')
-        .update({'score': updatedScore})
-        .eq('id', userId);
+        .update({'score': updatedScore}).eq('id', userId);
   }
 
   Future<int> getScore() async {
     final userId = GlobalUser().userId;
 
-    final response = await database
-        .from('User')
-        .select('score')
-        .eq('id', userId)
-        .single();
+    final response =
+        await database.from('User').select('score').eq('id', userId).single();
 
     if (response == null || response['score'] == null) {
       print('Error: Could not retrieve score');
@@ -69,5 +69,4 @@ class UserDatabase {
 
     return response['score'] as int;
   }
-
 }
